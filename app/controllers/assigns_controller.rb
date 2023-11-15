@@ -15,10 +15,19 @@ class AssignsController < ApplicationController
   end
 
   def destroy
+    # チームリーダ/本人のとき、削除できる
     assign = Assign.find(params[:id])
-    destroy_message = assign_destroy(assign, assign.user)
-
-    redirect_to team_url(params[:team_id]), notice: destroy_message
+    team_leader = assign.team.owner_id
+    binding.irb
+    if assign.user.id == current_user.id || team_leader == current_user.id
+      destroy_message = assign_destroy(assign, assign.user)
+      redirect_to team_url(params[:team_id]), notice: destroy_message
+    else
+      redirect_to team_url(params[:team_id]), notice: I18n.t('views.messages.failed_to_edstroy_assign')
+    end
+    # assign = Assign.find(params[:id])
+    # destroy_message = assign_destroy(assign, assign.user)
+    # redirect_to team_url(params[:team_id]), notice: destroy_message
   end
 
   private
