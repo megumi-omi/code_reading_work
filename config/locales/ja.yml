@@ -222,6 +222,7 @@ ja:
       failed_to_edit_team: 'チーム編集はリーダーのみ可能です。'
       failed_to_save_team: '保存に失敗しました、、'
       update_team: 'チーム更新に成功しました！'
+      update_team_leader: 'チーム更新に成功しました！'
       delete_team: 'チーム削除に成功しました！'
       update_profile: 'プロフィールを編集しました！'
       complete_registration: '登録完了'

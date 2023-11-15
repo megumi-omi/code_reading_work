@@ -50,6 +50,20 @@ class TeamsController < ApplicationController
   def dashboard
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
+  
+  # owner_idを変更する処理を書く
+  def authority_transfer
+    @team = Team.find_by(name: params[:team])
+    @new_leader = Assign.find(params[:assign_id]).user_id
+
+    if @team.update(owner_id: @new_leader)
+      redirect_to @team, notice: I18n.t('views.messages.update_team_leader')
+      
+      #@team.owner_idにメールを送る
+    else
+      flash.now[:error] = I18n.t('views.messages.failed_to_save_team')
+    end
+  end
 
   private
 
